@@ -4,8 +4,14 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
-import { getProjectBySlug } from '@/lib/content-utils'
+import { getProjectBySlug, getAllProjects } from '@/lib/content-utils'
 import { projectComponents } from '@/lib/mdx-components'
+
+export function generateStaticParams() {
+  return getAllProjects().map((project) => ({
+    slug: project.slug,
+  }))
+}
 
 interface ProjectDetailsProps {
   params: Promise<{
