@@ -2,67 +2,11 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Calendar } from 'lucide-react'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
-
-const articles = [
-  {
-    id: 1,
-    title: 'Advances in Real-Time Orbital Predictions',
-    excerpt: 'Exploring breakthrough algorithms that enable unprecedented accuracy in calculating satellite trajectories and orbital decay',
-    date: 'March 15, 2024',
-    readTime: '8 min read',
-    category: 'Research',
-    slug: 'orbital-predictions',
-  },
-  {
-    id: 2,
-    title: 'GPU Computing: Accelerating Astrophysical Simulations',
-    excerpt: 'How distributed GPU clusters are revolutionizing our capability to model complex celestial phenomena at scale',
-    date: 'March 8, 2024',
-    readTime: '12 min read',
-    category: 'Technology',
-    slug: 'gpu-computing',
-  },
-  {
-    id: 3,
-    title: 'The Role of Machine Learning in Space Science',
-    excerpt: 'Deep learning models are transforming how we analyze astronomical data and detect previously hidden patterns',
-    date: 'February 28, 2024',
-    readTime: '10 min read',
-    category: 'Innovation',
-    slug: 'ml-space-science',
-  },
-  {
-    id: 4,
-    title: 'Exoplanet Habitability Assessment Framework',
-    excerpt: 'A comprehensive methodology for evaluating potentially habitable worlds using integrated simulation data',
-    date: 'February 20, 2024',
-    readTime: '15 min read',
-    category: 'Research',
-    slug: 'exoplanet-habitability',
-  },
-  {
-    id: 5,
-    title: 'Collaborative Open-Source Astronomy Tools',
-    excerpt: 'Building a community-driven ecosystem for accessible celestial simulation and analysis',
-    date: 'February 10, 2024',
-    readTime: '9 min read',
-    category: 'Community',
-    slug: 'open-source-tools',
-  },
-  {
-    id: 6,
-    title: 'Climate Dynamics: Simulating Planetary Atmospheres',
-    excerpt: 'Computational approaches to modeling weather systems on distant worlds and their atmospheric evolution',
-    date: 'January 30, 2024',
-    readTime: '11 min read',
-    category: 'Research',
-    slug: 'climate-dynamics',
-  },
-]
-
-const categories = ['All', 'Research', 'Technology', 'Innovation', 'Community']
+import { getAllArticles } from '@/lib/content-utils'
 
 export default function ArticlesPage() {
+  const articles = getAllArticles()
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -101,7 +45,7 @@ export default function ArticlesPage() {
           <div className="space-y-6">
             {articles.map((article) => (
               <Link
-                key={article.id}
+                key={article.slug}
                 href={`/articles/${article.slug}`}
                 className="group block border border-border rounded-lg bg-card p-8 hover:border-accent hover:bg-bg-3 transition-all duration-300"
               >

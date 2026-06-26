@@ -1,71 +1,11 @@
-'use client'
-
 import Link from 'next/link'
-
-const articles = [
-  {
-    id: 1,
-    index: '001',
-    title: 'Advances in Real-Time Orbital Predictions',
-    excerpt: 'Breakthrough algorithms enabling unprecedented accuracy in satellite trajectory calculations and orbital decay modeling.',
-    date: '2024.03.15',
-    readTime: '8 MIN',
-    category: 'Research',
-    slug: 'orbital-predictions',
-  },
-  {
-    id: 2,
-    index: '002',
-    title: 'GPU Computing: Accelerating Astrophysical Simulations',
-    excerpt: 'Distributed GPU clusters revolutionizing our capability to model complex celestial phenomena at previously impossible scale.',
-    date: '2024.03.08',
-    readTime: '12 MIN',
-    category: 'Technology',
-    slug: 'gpu-computing',
-  },
-  {
-    id: 3,
-    index: '003',
-    title: 'The Role of Machine Learning in Space Science',
-    excerpt: 'Deep learning models transforming how we analyze astronomical data and detect previously hidden patterns in observational data.',
-    date: '2024.02.28',
-    readTime: '10 MIN',
-    category: 'Innovation',
-    slug: 'ml-space-science',
-  },
-  {
-    id: 4,
-    index: '004',
-    title: 'Exoplanet Habitability Assessment Framework',
-    excerpt: 'Comprehensive methodology for evaluating potentially habitable worlds using integrated multi-domain simulation data.',
-    date: '2024.02.20',
-    readTime: '15 MIN',
-    category: 'Research',
-    slug: 'exoplanet-habitability',
-  },
-  {
-    id: 5,
-    index: '005',
-    title: 'Collaborative Open-Source Astronomy Tools',
-    excerpt: 'Building a community-driven ecosystem for accessible celestial simulation, peer review, and open data sharing.',
-    date: '2024.02.10',
-    readTime: '9 MIN',
-    category: 'Community',
-    slug: 'open-source-tools',
-  },
-  {
-    id: 6,
-    index: '006',
-    title: 'Climate Dynamics: Simulating Planetary Atmospheres',
-    excerpt: 'Computational approaches to modeling weather systems on distant worlds and their long-term atmospheric evolution.',
-    date: '2024.01.30',
-    readTime: '11 MIN',
-    category: 'Research',
-    slug: 'climate-dynamics',
-  },
-]
+import { getAllArticles } from '@/lib/content-utils'
 
 export default function ArticlesSection() {
+  const articles = getAllArticles()
+
+  const padIndex = (i: number) => String(i + 1).padStart(3, '0')
+
   return (
     <section id="articles" className="border-b border-border blueprint-grid">
 
@@ -85,7 +25,7 @@ export default function ArticlesSection() {
           </div>
           <div className="hidden sm:flex flex-col items-end gap-1 pb-1">
             <span className="coord-label">TOTAL: {String(articles.length).padStart(3, '0')}</span>
-            <span className="coord-label">LATEST: 2024.03.15</span>
+            <span className="coord-label">LATEST: {articles[0]?.date || '—'}</span>
           </div>
         </div>
       </div>
@@ -105,14 +45,14 @@ export default function ArticlesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {articles.map((article, idx) => (
           <Link
-            key={article.id}
+            key={article.slug}
             href={`/articles/${article.slug}`}
             className="group grid grid-cols-[3rem_1fr_auto] sm:grid-cols-[3rem_1fr_8rem_6rem_5rem] items-start py-6 border-b border-border hover:bg-[rgba(61,184,245,0.04)] hover:border-accent transition-colors duration-75 animate-enter-up"
             style={{ animationDelay: `${0.05 * idx}s` }}
           >
             {/* Index */}
             <span className="font-mono text-[10px] text-[var(--text-3)] mt-1 group-hover:text-accent transition-colors duration-75">
-              {article.index}
+              {padIndex(idx)}
             </span>
 
             {/* Title + excerpt */}

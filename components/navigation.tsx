@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const navLinks = [
-  { label: 'Projects', href: '#projects' },
-  { label: 'Articles', href: '#articles' },
-  { label: 'Members', href: '#members' },
+  { label: 'Projects', href: '/#projects' },
+  { label: 'Articles', href: '/articles' },
+  { label: 'Members', href: '/#members' },
 ]
 
 export default function Navigation() {

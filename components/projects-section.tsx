@@ -1,71 +1,11 @@
-'use client'
-
 import Link from 'next/link'
-
-const projects = [
-  {
-    id: 1,
-    index: '001',
-    title: 'Orbital Dynamics Framework',
-    description: 'Advanced N-body simulation engine for precise orbital mechanics calculations with real-time constraint solving.',
-    category: 'Physics',
-    status: 'ACTIVE',
-    year: '2024',
-    slug: 'orbital-dynamics',
-  },
-  {
-    id: 2,
-    index: '002',
-    title: 'Atmospheric Modeling Suite',
-    description: 'Real-time atmospheric simulation for exoplanet research using spectral decomposition and radiative transfer.',
-    category: 'Fluid Dynamics',
-    status: 'ACTIVE',
-    year: '2024',
-    slug: 'atmospheric-modeling',
-  },
-  {
-    id: 3,
-    index: '003',
-    title: 'Machine Learning Predictor',
-    description: 'Neural networks for celestial event prediction and anomaly detection in large observational datasets.',
-    category: 'ML / AI',
-    status: 'ACTIVE',
-    year: '2023',
-    slug: 'ml-predictor',
-  },
-  {
-    id: 4,
-    index: '004',
-    title: 'GPU Acceleration Hub',
-    description: 'Distributed computing platform enabling large-scale parallel simulations across heterogeneous hardware.',
-    category: 'Computing',
-    status: 'ACTIVE',
-    year: '2023',
-    slug: 'gpu-acceleration',
-  },
-  {
-    id: 5,
-    index: '005',
-    title: 'Gravitational Lensing Analyzer',
-    description: 'Computational tools for dark matter detection and mapping through precise gravitational lensing effects.',
-    category: 'Physics',
-    status: 'IN REVIEW',
-    year: '2024',
-    slug: 'lensing-analyzer',
-  },
-  {
-    id: 6,
-    index: '006',
-    title: 'Economic Impact Simulator',
-    description: 'Models space industry economics, resource allocation optimization, and mission cost projection frameworks.',
-    category: 'Economics',
-    status: 'ACTIVE',
-    year: '2022',
-    slug: 'economic-simulator',
-  },
-]
+import { getAllProjects } from '@/lib/content-utils'
 
 export default function ProjectsSection() {
+  const projects = getAllProjects()
+
+  const padIndex = (i: number) => String(i + 1).padStart(3, '0')
+
   return (
     <section id="projects" className="border-b border-border blueprint-grid">
 
@@ -83,7 +23,7 @@ export default function ProjectsSection() {
           </div>
           <div className="hidden sm:flex flex-col items-end gap-1 pb-1">
             <span className="coord-label">TOTAL: {String(projects.length).padStart(3, '0')}</span>
-            <span className="coord-label">STATUS: {projects.filter(p => p.status === 'ACTIVE').length} ACTIVE</span>
+            <span className="coord-label">STATUS: {projects.filter(p => p.status.toUpperCase() === 'ACTIVE').length} ACTIVE</span>
           </div>
         </div>
       </div>
@@ -103,14 +43,14 @@ export default function ProjectsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {projects.map((project, idx) => (
           <Link
-            key={project.id}
+            key={project.slug}
             href={`/projects/${project.slug}`}
             className="group grid grid-cols-[3rem_1fr_auto] sm:grid-cols-[3rem_1fr_10rem_6rem_6rem] items-start py-6 border-b border-border hover:bg-[rgba(61,184,245,0.04)] hover:border-accent transition-colors duration-75 animate-enter-up"
             style={{ animationDelay: `${0.05 * idx}s` }}
           >
             {/* Index */}
             <span className="font-mono text-[10px] text-[var(--text-3)] mt-1 group-hover:text-accent transition-colors duration-75">
-              {project.index}
+              {padIndex(idx)}
             </span>
 
             {/* Title + desc */}
@@ -137,12 +77,12 @@ export default function ProjectsSection() {
             <div className="hidden sm:flex items-start mt-1">
               <span
                 className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 border ${
-                  project.status === 'ACTIVE'
+                  project.status.toUpperCase() === 'ACTIVE'
                     ? 'border-accent text-accent'
                     : 'border-[var(--text-3)] text-[var(--text-3)]'
                 }`}
               >
-                {project.status}
+                {project.status.toUpperCase()}
               </span>
             </div>
           </Link>
