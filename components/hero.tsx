@@ -1,12 +1,5 @@
 'use client'
 
-const stats = [
-  { label: 'Established', value: '2018', coord: 'T:001' },
-  { label: 'Active Projects', value: '12+', coord: 'T:002' },
-  { label: 'Team Members', value: '40+', coord: 'T:003' },
-  { label: 'Publications', value: '8', coord: 'T:004' },
-]
-
 const ticker = [
   'Orbital Dynamics',
   'Atmospheric Modeling',
@@ -20,13 +13,7 @@ const ticker = [
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden blueprint-grid scanlines">
-
-      {/* Top coordinate bar */}
-      <div className="border-b border-border px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
-        <span className="coord-label">SYS:SEDS-CELESTIA // SIMULATIONS DIVISION</span>
-        <span className="coord-label">LAT:28.6139°N // LON:77.2090°E</span>
-      </div>
+    <section className="relative min-h-screen flex flex-col justify-between overflow-hidden blueprint-grid scanlines border-b border-border">
 
       {/* Main hero content */}
       <div className="flex-1 flex flex-col justify-between px-4 sm:px-6 lg:px-8 pt-16 pb-0 max-w-7xl mx-auto w-full">
@@ -50,7 +37,7 @@ export default function Hero() {
           >
             <span className="block">SEDS</span>
             <span className="block text-accent">CELESTIA</span>
-            <span className="block text-[var(--text-3)]">SIMS.</span>
+            <span className="block text-[var(--text-3)]">SIMULATIONS</span>
           </h1>
 
           <p
@@ -65,7 +52,7 @@ export default function Hero() {
 
         {/* Ticker strip */}
         <div
-          className="my-12 border-y border-border py-3 overflow-hidden animate-enter-up"
+          className="my-12 border-t border-border pt-6 pb-2 overflow-hidden animate-enter-up"
           style={{ animationDelay: '0.25s' }}
         >
           <div className="marquee-track">
@@ -79,29 +66,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Stats row — full width, brutal index */}
-      <div className="border-t border-border">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 md:grid-cols-4 animate-enter-up" style={{ animationDelay: '0.3s' }}>
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className="px-6 py-8 border-r border-border last:border-r-0 data-row"
-              style={{ borderRadius: 0 }}
-            >
-              <div className="flex items-start justify-between mb-3">
-                <span className="coord-label">{stat.coord}</span>
-                <span className="coord-label">{String(i + 1).padStart(2, '0')}</span>
-              </div>
-              <p className="font-display font-bold text-3xl sm:text-4xl text-accent leading-none mb-2">
-                {stat.value}
-              </p>
-              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--text-2)]">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   )
 }
