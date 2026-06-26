@@ -21,14 +21,18 @@ export const articleComponents: MDXComponents = {
       {children}
     </strong>
   ),
-  img: ({ src, alt, ...props }) => (
-    <img
-      src={src}
-      alt={alt || ''}
-      className="my-8 border border-border w-full"
-      {...props}
-    />
-  ),
+  img: ({ src, alt, ...props }) => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+    const fullSrc = typeof src === 'string' && src.startsWith('/') && !src.startsWith(basePath) ? `${basePath}${src}` : src
+    return (
+      <img
+        src={fullSrc}
+        alt={alt || ''}
+        className="my-8 border border-border w-full"
+        {...props}
+      />
+    )
+  },
   a: ({ children, href, ...props }) => (
     <a
       href={href}
