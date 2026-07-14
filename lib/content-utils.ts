@@ -129,3 +129,22 @@ export function getProjectBySlug(slug: string): ProjectData | null {
     content,
   }
 }
+
+export interface MemberMeta {
+  id: number
+  index: string
+  name: string
+  role: string
+  group: 'core' | 'crew'
+  initials: string
+  email: string
+  linkedin: string
+  github: string
+}
+
+export function getAllMembers(): MemberMeta[] {
+  // ponytail: direct file read without extra parser or abstraction
+  const filePath = path.join(process.cwd(), 'content', 'members.json')
+  if (!fs.existsSync(filePath)) return []
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
