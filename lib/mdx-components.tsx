@@ -1,6 +1,88 @@
 import type { MDXComponents } from 'mdx/types'
+import { Children, isValidElement, type ReactNode } from 'react'
+import { KpiGrid, Callout, Roadmap } from '@/components/mdx-widgets'
+import { FlowStrip, DualFlow, BranchFlow, SeqFlow } from '@/components/flow-diagrams'
+
+function MdxImage({
+  src,
+  alt,
+  ...props
+}: {
+  src?: string
+  alt?: string
+} & React.ImgHTMLAttributes<HTMLImageElement>) {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+  const fullSrc =
+    typeof src === 'string' && src.startsWith('/') && !src.startsWith(basePath)
+      ? `${basePath}${src}`
+      : src
+
+  return (
+    <figure className="my-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={fullSrc} alt={alt || ''} className="border border-border w-full" {...props} />
+      {alt ? (
+        <figcaption className="mt-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[var(--text-3)]">
+          {alt}
+        </figcaption>
+      ) : null}
+    </figure>
+  )
+}
+
+function isMdxImage(node: ReactNode): boolean {
+  return isValidElement(node) && node.type === MdxImage
+}
+
+function Paragraph({
+  children,
+  className = 'text-base leading-relaxed',
+  ...props
+}: {
+  children?: ReactNode
+  className?: string
+}) {
+  const kids = Children.toArray(children)
+  const meaningful = kids.filter((c) => !(typeof c === 'string' && !c.trim()))
+
+  if (meaningful.length === 1 && isMdxImage(meaningful[0])) {
+    return <>{meaningful[0]}</>
+  }
+
+  if (meaningful.some(isMdxImage)) {
+    return (
+      <div className={className} {...props}>
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <p className={className} {...props}>
+      {children}
+    </p>
+  )
+}
+
+function Pre({ children, ...props }: { children?: ReactNode }) {
+  return (
+    <pre
+      className="bg-card border border-border p-4 overflow-x-auto text-sm font-mono leading-relaxed my-6"
+      {...props}
+    >
+      {children}
+    </pre>
+  )
+}
 
 export const articleComponents: MDXComponents = {
+  KpiGrid,
+  Callout,
+  Roadmap,
+  FlowStrip,
+  DualFlow,
+  BranchFlow,
+  SeqFlow,
   h2: ({ children, ...props }) => (
     <h2 className="text-2xl font-bold text-foreground font-display mt-8 mb-4" {...props}>
       {children}
@@ -11,28 +93,28 @@ export const articleComponents: MDXComponents = {
       {children}
     </h3>
   ),
-  p: ({ children, ...props }) => (
-    <p className="text-base leading-relaxed" {...props}>
+  p: (props) => <Paragraph {...props} />,
+  ul: ({ children, ...props }) => (
+    <ul className="my-4 list-none space-y-2 text-[var(--text-2)]" {...props}>
       {children}
-    </p>
+    </ul>
+  ),
+  ol: ({ children, ...props }) => (
+    <ol className="my-4 list-none space-y-2 text-[var(--text-2)]" {...props}>
+      {children}
+    </ol>
+  ),
+  li: ({ children, ...props }) => (
+    <li className="leading-relaxed" {...props}>
+      {children}
+    </li>
   ),
   strong: ({ children, ...props }) => (
     <strong className="text-foreground font-semibold" {...props}>
       {children}
     </strong>
   ),
-  img: ({ src, alt, ...props }) => {
-    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
-    const fullSrc = typeof src === 'string' && src.startsWith('/') && !src.startsWith(basePath) ? `${basePath}${src}` : src
-    return (
-      <img
-        src={fullSrc}
-        alt={alt || ''}
-        className="my-8 border border-border w-full"
-        {...props}
-      />
-    )
-  },
+  img: MdxImage,
   a: ({ children, href, ...props }) => (
     <a
       href={href}
@@ -50,21 +132,10 @@ export const articleComponents: MDXComponents = {
       {children}
     </code>
   ),
-  pre: ({ children, ...props }) => (
-    <pre
-      className="bg-card border border-border p-4 overflow-x-auto text-sm font-mono leading-relaxed my-6"
-      {...props}
-    >
-      {children}
-    </pre>
-  ),
+  pre: Pre,
 }
 
 export const projectComponents: MDXComponents = {
   ...articleComponents,
-  p: ({ children, ...props }) => (
-    <p className="text-text-2 leading-relaxed text-base" {...props}>
-      {children}
-    </p>
-  ),
+  p: (props) => <Paragraph className="text-text-2 leading-relaxed text-base" {...props} />,
 }

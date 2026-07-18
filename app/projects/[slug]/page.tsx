@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import remarkGfm from 'remark-gfm'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import { getProjectBySlug, getAllProjects } from '@/lib/content-utils'
 import { projectComponents } from '@/lib/mdx-components'
+import { mdxOptions } from '@/lib/mdx-options'
 
 export function generateStaticParams() {
   return getAllProjects().map((project) => ({
@@ -95,7 +95,7 @@ export default async function ProjectPage(props: ProjectDetailsProps) {
           <div className="mdx-content">
             <MDXRemote
               source={content}
-              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              options={{ mdxOptions }}
               components={projectComponents}
             />
           </div>
@@ -103,9 +103,9 @@ export default async function ProjectPage(props: ProjectDetailsProps) {
           {/* Team and Publications */}
           <div className="grid md:grid-cols-2 gap-12 mt-16 pt-12 border-t border-border">
             <div>
-              <h3 className="text-lg font-bold text-foreground font-display mb-4">Core Team</h3>
+              <h3 className="text-lg font-bold text-foreground font-display mb-4">Team</h3>
               <ul className="space-y-2">
-                {meta.team.map((member: string, i: number) => (
+                {(meta.team || []).map((member: string, i: number) => (
                   <li key={i} className="text-text-2 text-sm">{member}</li>
                 ))}
               </ul>
@@ -114,9 +114,13 @@ export default async function ProjectPage(props: ProjectDetailsProps) {
             <div>
               <h3 className="text-lg font-bold text-foreground font-display mb-4">Publications</h3>
               <ul className="space-y-2">
-                {meta.publications.map((pub: string, i: number) => (
-                  <li key={i} className="text-text-2 text-sm">{pub}</li>
-                ))}
+                {(meta.publications || []).length === 0 ? (
+                  <li className="text-text-2 text-sm">None yet</li>
+                ) : (
+                  (meta.publications || []).map((pub: string, i: number) => (
+                    <li key={i} className="text-text-2 text-sm">{pub}</li>
+                  ))
+                )}
               </ul>
             </div>
           </div>

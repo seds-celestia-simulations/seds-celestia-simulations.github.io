@@ -1,0 +1,85 @@
+---
+title: 'Penrose'
+description: 'Modular general-relativity framework for geodesic integration and real-time Schwarzschild ray tracing on CPU and GPU.'
+category: 'Physics'
+color: '#c8612a'
+date: 'Ongoing'
+status: 'Active'
+year: '2026'
+team:
+  - 'Harliv Singh'
+  - 'Anvay Shinde'
+  - 'Akshay Karuvathil'
+  - 'Aditya Melinkeri'
+  - 'Hardik Bisht'
+---
+
+**Penrose** is a modular General Relativity framework for simulating and visualizing particle and photon trajectories in curved spacetime. It began as a Schwarzschild black-hole ray tracer and is growing into a general-purpose stack for relativistic spacetime simulation, geodesic integration, validation, and scientific visualization.
+
+![Interactive Schwarzschild visualization with accretion disk](/images/projects/penrose.png)
+
+<KpiGrid items='[{"label":"Free-fall error","value":"<0.05%","hint":"vs analytic proper time"},{"label":"Invariant drift","value":"~10⁻⁶","hint":"E, L, norm @ 5e6 steps"},{"label":"State vector","value":"8D","hint":"(t,r,θ,φ) + 4-velocity"},{"label":"GPU steps / ray","value":"≤1000","hint":"fixed-step RK4 march"}]' />
+
+## What it does
+
+- Schwarzschild spacetime implementation
+- Relativistic photon ray tracing (null geodesics)
+- Fourth-order Runge–Kutta geodesic integration
+- CPU reference physics pipeline for correctness
+- GPU real-time visualization via OpenGL / GLSL
+- Scientific benchmarking and validation against analytic constraints
+
+![Penrose dual-pipeline architecture infographic](/images/projects/penrose-pipeline.svg)
+
+## Architecture
+
+Penrose splits into two pipelines on purpose. Same physics story — two backends.
+
+<DualFlow left='{"title":"CPU — physics/","steps":["State","Metric","Geodesics","RK4 Integrator","Trajectory Solver","Validation / CSV"]}' right='{"title":"GPU — realtime/","steps":["Camera","Renderer","Fragment Shader","GPU RK4","Pixel Color"]}' bridge="CPU validation is the reference; GPU reuses the same geodesic physics for interactive frames" />
+
+**CPU scientific framework** (`physics/`) — spacetime definitions, geodesic dynamics, numerical integration, benchmarking, CSV export, and validation. This is the reference implementation.
+
+**GPU visualization pipeline** (`realtime/`) — interactive OpenGL rendering. Each screen pixel is an independent photon path solved in a fragment shader with parallel RK4 raymarching.
+
+<BranchFlow steps='["Matter / Energy","Metric Tensor","Christoffel Symbols","Geodesic Equation","RK4 Integration","Trajectory"]' branches='[{"label":"r near rs","target":"Horizon capture"},{"label":"SSBO hit","target":"Disk color"},{"label":"escaped","target":"Skybox sample"}]' />
+
+## Physics snapshot
+
+Spacetime is the analytic Schwarzschild metric in geometric units ($G = c = 1$). The line element is
+
+$$
+ds^2 = -\left(1 - \frac{r_s}{r}\right) dt^2 + \left(1 - \frac{r_s}{r}\right)^{-1} dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta\, d\phi^2
+$$
+
+with horizon radius $r_s = 2M$. Light follows null geodesics ($ds^2 = 0$). Motion obeys the geodesic equation
+
+$$
+a^\mu = -\Gamma^\mu_{\alpha\beta}\, u^\alpha u^\beta
+$$
+
+The solver evolves an 8D state $\mathbf{S} = (t, r, \theta, \phi, u^t, u^r, u^\theta, u^\phi)$ with Christoffel-driven acceleration.
+
+Horizon capture, disk hits (SSBO particles), and skybox escape terminate each ray. Polar singularities use reflection boundary conditions; integration stops near $r \approx 1.1\,r_s$ to avoid horizon blow-up.
+
+## Validation KPIs
+
+![Validation KPI board from CPU benchmarks](/images/projects/penrose-kpis.svg)
+
+CPU benchmarks include radial free-fall (relative error under $0.05\%$ vs analytic proper time) and circular-orbit invariant checks. Energy $E$, angular momentum $L$, and the geodesic norm stay within $\sim 10^{-6}$ drift over millions of steps at $dt = 0.01$.
+
+<Callout title="Why dual pipelines">
+CPU path is ground truth for science. GPU path is the live window into curved spacetime. They share the physics model, not the implementation — so interactive visuals never redefine correctness.
+</Callout>
+
+## Engineering notes
+
+- **Fixed GPU timestep** — adaptive RKF45 reduces flat-space work but causes warp divergence; fixed $h$ keeps SIMT coherent.
+- **fp32 on GPU** — fine for visualization; near-horizon rounding accumulates over $\sim 1000$ steps.
+- **Memory** — procedural geometry + particle SSBO stays under $\sim 50$ MB.
+- **Disk model** — kinematic point particles today, not radiative transfer.
+
+## Roadmap
+
+Evolve from a Schwarzschild-specific renderer into a modular GR framework. Planned geometries include Kerr, Reissner–Nordström, FLRW, Solar Gravitational Lens, user-defined analytic metrics, and numerical metric fields — plus fp64 / adaptive integrators, redshift & Doppler effects, and physically motivated accretion disks.
+
+<Roadmap items='[{"phase":"01 // Now","status":"active","title":"Schwarzschild lab","items":["Dual CPU / GPU pipelines","Null + timelike RK4 geodesics","Free-fall + orbital validation"]},{"phase":"02 // Next","status":"next","title":"Spinning spacetime","items":["Kerr metric + frame dragging","fp64 where fp32 drifts","Adaptive steps off critical path"]},{"phase":"03 // Later","status":"later","title":"Modular GR stack","items":["RN / FLRW / SGL metrics","Redshift + Doppler coloring","Physical / GRMHD-style disks"]}]' />

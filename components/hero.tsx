@@ -1,14 +1,14 @@
 'use client'
 
 const ticker = [
-  'Orbital Dynamics',
-  'Atmospheric Modeling',
-  'Gravitational Lensing',
-  'GPU Acceleration',
-  'ML Predictors',
-  'Exoplanet Research',
-  'N-Body Simulation',
-  'Fluid Dynamics',
+  'Penrose',
+  'General Relativity',
+  'Null Geodesics',
+  'Schwarzschild Ray Tracing',
+  'GPU Raymarching',
+  'RK4 Integration',
+  'Spacetime Visualization',
+  'Scientific Validation',
 ]
 
 export default function Hero() {
@@ -44,9 +44,8 @@ export default function Hero() {
             className="font-mono text-[var(--text-2)] text-sm leading-relaxed max-w-xl mt-10 border-l-2 border-accent pl-5 animate-enter-up"
             style={{ animationDelay: '0.2s' }}
           >
-            Pioneering computational astrophysics research through advanced
-            simulation frameworks, distributed computing, and machine learning —
-            built by engineers, for space exploration.
+            Student-built computational astrophysics — simulation frameworks,
+            relativistic visualization, and scientific validation.
           </p>
         </div>
 

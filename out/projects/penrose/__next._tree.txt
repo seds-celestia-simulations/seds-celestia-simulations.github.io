@@ -1,0 +1,7 @@
+:HL["/_next/static/chunks/0dbsgx8kvgnoy.css","style"]
+:HL["/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/images/projects/penrose.png","image"]
+:HL["/images/projects/penrose-pipeline.svg","image"]
+:HL["/images/projects/penrose-kpis.svg","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"projects","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"penrose","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"qBW78IDjrM_qO2I_k3dW5"}

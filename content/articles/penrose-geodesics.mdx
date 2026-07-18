@@ -1,0 +1,130 @@
+---
+title: 'Penrose: Real-Time Geodesics in Schwarzschild Spacetime'
+excerpt: 'How SEDS Celestia Simulations builds a dual CPU/GPU general-relativity framework that integrates null geodesics for interactive black-hole ray tracing — with validation KPIs, architecture diagrams, and engineering notes from the Penrose team.'
+date: 'July 19, 2026'
+readTime: '14 min read'
+category: 'Research'
+author: 'SEDS Celestia Simulations'
+---
+
+Weak-field lensing tricks break down near a black hole. Photon spheres, infinite-order Einstein rings, and horizon capture need the full geodesic equation — not a deflection-angle shortcut. **Penrose** is our answer: a modular GR framework that integrates those geodesics on CPU for science, and on GPU for interactive visualization.
+
+Built by **Harliv Singh**, **Anvay Shinde**, **Akshay Karuvathil**, **Aditya Melinkeri**, and **Hardik Bisht**.
+
+![Schwarzschild render with accretion disk](/images/articles/penrose-disk-fixed.png)
+
+<KpiGrid items='[{"label":"Free-fall error","value":"<0.05%","hint":"τ_num vs τ_analytic"},{"label":"Invariant drift","value":"~10⁻⁶","hint":"E, L, norm @ 5e6 steps"},{"label":"Memory","value":"<50 MB","hint":"procedural + SSBO"},{"label":"Horizon cutoff","value":"1.1 rs","hint":"avoid (r−rs) blow-up"}]' />
+
+## Why we built it
+
+Computational astrophysics needs both trust and speed. Offline solvers can be precise but slow to explore. Screen-space hacks look cinematic but often skip the physics. Penrose keeps those concerns separate:
+
+- **CPU pipeline** (`physics/`) — reference implementation: metrics, Christoffel symbols, RK4 integration, CSV export, analytic benchmarks.
+- **GPU pipeline** (`realtime/`) — OpenGL + GLSL raymarcher: one null geodesic per pixel, solved in parallel inside the fragment shader.
+
+Same physics story. Two backends. The CPU path is ground truth; the GPU path is the live window into curved spacetime.
+
+<DualFlow left='{"title":"Scientific trust","steps":["Analytic constraints","CPU RK4","CSV trajectories","Free-fall + orbital benches"]}' right='{"title":"Interactive viz","steps":["Screen pixels","GLSL RK4","Terminate","Horizon / disk / sky"]}' bridge="Same geodesic equations — CPU proves them, GPU shows them" />
+
+## The physical model
+
+We work in the Schwarzschild geometry — static, spherically symmetric, non-rotating mass $M$ — with geometric units $G = c = 1$. The line element is
+
+$$
+ds^2 = -\left(1 - \frac{r_s}{r}\right) dt^2 + \left(1 - \frac{r_s}{r}\right)^{-1} dr^2 + r^2 d\theta^2 + r^2 \sin^2\theta\, d\phi^2
+$$
+
+with horizon radius $r_s = 2M$. Photons ride null geodesics ($ds^2 = 0$). Four-acceleration comes from the Christoffel symbols via
+
+$$
+a^\mu = -\Gamma^\mu_{\alpha\beta}\, u^\alpha u^\beta
+$$
+
+so the integrator only needs the non-zero Schwarzschild connection coefficients and a careful initialization of $u^t$ from the metric constraint on the spatial velocity.
+
+<FlowStrip steps='["Camera ray","To spherical","Null constraint ut","8D state","RK4 step"]' />
+
+## State and integrator
+
+Every trajectory is an 8-component state
+
+$$
+\mathbf{S} = (t,\, r,\, \theta,\, \phi,\, u^t,\, u^r,\, u^\theta,\, u^\phi)
+$$
+
+evolved with classical RK4 in the affine parameter. Local truncation is $\mathcal{O}(h^5)$; global error $\mathcal{O}(h^4)$ — enough to keep Killing invariants from wandering for long marches.
+
+On the GPU we keep a **fixed** step. Adaptive schemes (RKF45 and friends) are nicer in flat regions but cause warp divergence across neighboring pixels. Fixed $h$ trades a bit of step efficiency for SIMT coherence.
+
+Singularities get practical treatment: polar reflection when $\theta$ crosses the axis, and hard termination once $r < 1.1\,r_s$ so divisions by $(r - r_s)$ never blow the shader. Escape at large $r$ samples the skybox; disk hits read an SSBO of kinematic particles.
+
+![Radial free-fall validation against analytic proper time](/images/articles/penrose-freefall.png)
+
+## Does the numerics hold up?
+
+Two CPU benchmarks matter most.
+
+**Radial free-fall.** Drop a test particle from rest at $r_0 = 10$ with $r_s = 1$. Analytic proper time to the horizon is
+
+$$
+\tau_{\mathrm{analytical}} = \frac{2}{3\sqrt{r_s}}\left(r_0^{3/2} - r_s^{3/2}\right) \approx 20.415
+$$
+
+At $dt = 0.01$, Penrose crosses near $\tau \approx 20.41$ — relative error under $0.05\%$.
+
+**Circular orbit invariants.** Schwarzschild Killing vectors conserve energy $E$ and angular momentum $L$; the geodesic norm must stay $-1$ (massive) or $0$ (null):
+
+$$
+E = \left(1 - \frac{r_s}{r}\right) u^t, \qquad L = r^2 \sin^2\theta\, u^\phi
+$$
+
+Over $5\times 10^6$ steps at $dt = 0.01$, drift in $E$, $L$, and the norm stays within about $10^{-6}$.
+
+![Circular-orbit invariant conservation](/images/articles/penrose-orbital.png)
+
+![KPI board summarizing validation targets](/images/projects/penrose-kpis.svg)
+
+That is the bar the GPU visualizer is aiming to match, not invent.
+
+## What real-time looks like
+
+Each frame:
+
+1. Un-project every pixel to a world-space ray.
+2. Convert Cartesian camera rays to spherical geodesic state.
+3. March with GPU RK4 until horizon, disk hit, or escape.
+4. Color the fragment — black for capture, particle color for disk, environment map for infinity.
+
+Workload is embarrassingly parallel. Adjacent rays usually share the same control flow until the shadow edge, where capture/escape splits the warp. Memory stays small: procedural geometry plus a single particle SSBO, well under tens of megabytes.
+
+<SeqFlow actors='["Pixel","Camera","Fragment RK4","Termination"]' steps='[{"from":"Pixel","to":"Camera","msg":"screen UV"},{"from":"Camera","to":"Fragment RK4","msg":"world ray to state"},{"from":"Fragment RK4","to":"Fragment RK4","msg":"Christoffel + RK4","note":"loop up to 1000 steps"},{"from":"Fragment RK4","to":"Termination","msg":"check r / disk / escape"},{"from":"Termination","to":"Pixel","msg":"color"}]' />
+
+## Disk debugging — real engineering
+
+Accretion-disk visuals did not arrive free. Early SSBO / depth interactions produced artifact rings and broken disks. The team chased the bug in notes, compared broken vs underlying frames, then shipped the fixed path.
+
+![Bugged disk render during debugging](/images/articles/penrose-disk-bug.png)
+
+![Underlying artifact frame from the disk bug investigation](/images/articles/penrose-disk-artifact.png)
+
+![Fixed disk after the SSBO / intersection path was corrected](/images/articles/penrose-disk-fixed.png)
+
+<Callout title="Takeaway">
+Pretty frames are a byproduct. Penrose prioritizes integrable equations, measurable error, and debuggable pipelines — then the image gets honest.
+</Callout>
+
+## Limits (honest ones)
+
+- Schwarzschild only today — no Kerr spin yet.
+- GPU path is fp32; near-horizon rounding piles up over ~1000 steps.
+- Fixed step size struggles at the photon sphere without denser sampling.
+- Accretion disk is kinematic points, not radiative transfer.
+- No gravitational redshift or Doppler boosting in the color pipeline yet.
+
+## Where Penrose goes next
+
+<Roadmap items='[{"phase":"01 // Shipped","status":"active","title":"Schwarzschild lab","items":["Dual CPU / GPU pipelines","Free-fall + orbital KPIs validated","Interactive null-geodesic raymarcher"]},{"phase":"02 // Near-term","status":"next","title":"Spin + numerics","items":["Kerr spacetime geodesics","fp64 where fp32 drifts","Adaptive integrators off hot path"]},{"phase":"03 // Horizon","status":"later","title":"Modular GR stack","items":["RN / FLRW / SGL / numeric metrics","Redshift + Doppler coloring","Physical / GRMHD-style disks"]}]' />
+
+Roadmap is deliberate: Kerr (and then RN, FLRW, SGL, numeric metrics), fp64 / adaptive integrators where they earn their keep, frequency shift along geodesics, and disks that look more like Novikov–Thorne or GRMHD data than point sprites.
+
+Penrose is not a slideshow of fake space art. It is a student-built GR lab: integrate the real equations, validate them, then show the light paths live.

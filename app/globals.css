@@ -326,6 +326,27 @@
   margin-bottom: 1.5rem;
 }
 
+.mdx-content .katex {
+  font-size: 1.05em;
+  color: var(--foreground);
+}
+
+.mdx-content .katex-display {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.75rem 0;
+}
+
+.mdx-content .katex-display > .katex {
+  font-size: 1.15em;
+}
+
+.mdx-content .mermaid-wrap,
+.mdx-content [dangerouslysetinnerhtml] {
+  overflow: visible;
+}
+
 /* ─── Scanline effect (subtle, blueprint feel) ─── */
 .scanlines {
   position: relative;

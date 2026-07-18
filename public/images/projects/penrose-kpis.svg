@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
+  <rect width="1200" height="420" fill="#071018"/>
+  <g stroke="#1e3a4a" stroke-width="1" opacity="0.7">
+    <path d="M0 70 H1200 M0 140 H1200 M0 210 H1200 M0 280 H1200 M0 350 H1200"/>
+    <path d="M100 0 V420 M200 0 V420 M300 0 V420 M400 0 V420 M500 0 V420 M600 0 V420 M700 0 V420 M800 0 V420 M900 0 V420 M1000 0 V420 M1100 0 V420"/>
+  </g>
+  <text x="48" y="42" fill="#3db8f5" font-family="ui-monospace, monospace" font-size="14" letter-spacing="3">PENROSE // VALIDATION KPIs</text>
+  <g font-family="ui-monospace, monospace">
+    <rect x="48" y="80" width="260" height="140" fill="#0d3a4a" stroke="#3db8f5"/>
+    <text x="68" y="112" fill="#8aa3b5" font-size="12" letter-spacing="2">FREE-FALL ERROR</text>
+    <text x="68" y="168" fill="#e8f4f8" font-size="42" font-weight="700">&lt;0.05%</text>
+    <text x="68" y="198" fill="#8aa3b5" font-size="12">vs analytic proper time</text>
+
+    <rect x="328" y="80" width="260" height="140" fill="#0d3a4a" stroke="#3db8f5"/>
+    <text x="348" y="112" fill="#8aa3b5" font-size="12" letter-spacing="2">INVARIANT DRIFT</text>
+    <text x="348" y="168" fill="#e8f4f8" font-size="42" font-weight="700">~10⁻⁶</text>
+    <text x="348" y="198" fill="#8aa3b5" font-size="12">E, L, norm @ 5e6 steps</text>
+
+    <rect x="608" y="80" width="260" height="140" fill="#0d3a4a" stroke="#3db8f5"/>
+    <text x="628" y="112" fill="#8aa3b5" font-size="12" letter-spacing="2">STATE DIM</text>
+    <text x="628" y="168" fill="#e8f4f8" font-size="42" font-weight="700">8D</text>
+    <text x="628" y="198" fill="#8aa3b5" font-size="12">(t,r,θ,φ) + 4-velocity</text>
+
+    <rect x="888" y="80" width="264" height="140" fill="#0d3a4a" stroke="#3db8f5"/>
+    <text x="908" y="112" fill="#8aa3b5" font-size="12" letter-spacing="2">GPU STEPS / RAY</text>
+    <text x="908" y="168" fill="#e8f4f8" font-size="42" font-weight="700">≤1000</text>
+    <text x="908" y="198" fill="#8aa3b5" font-size="12">fixed-step RK4 march</text>
+
+    <rect x="48" y="250" width="540" height="130" fill="#12202a" stroke="#1e4a5c"/>
+    <text x="68" y="286" fill="#3db8f5" font-size="13" letter-spacing="2">MEMORY FOOTPRINT</text>
+    <text x="68" y="336" fill="#e8f4f8" font-size="36" font-weight="700">&lt; 50 MB</text>
+    <text x="68" y="364" fill="#8aa3b5" font-size="12">procedural geometry + particle SSBO</text>
+
+    <rect x="612" y="250" width="540" height="130" fill="#12202a" stroke="#1e4a5c"/>
+    <text x="632" y="286" fill="#3db8f5" font-size="13" letter-spacing="2">HORIZON CUTOFF</text>
+    <text x="632" y="336" fill="#e8f4f8" font-size="36" font-weight="700">1.1 rs</text>
+    <text x="632" y="364" fill="#8aa3b5" font-size="12">terminate before (r−rs) blow-up</text>
+  </g>
+</svg>

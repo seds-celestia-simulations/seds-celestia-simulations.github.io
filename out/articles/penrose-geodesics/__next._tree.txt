@@ -1,0 +1,10 @@
+:HL["/_next/static/chunks/0dbsgx8kvgnoy.css","style"]
+:HL["/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/images/articles/penrose-disk-fixed.png","image"]
+:HL["/images/articles/penrose-freefall.png","image"]
+:HL["/images/articles/penrose-orbital.png","image"]
+:HL["/images/projects/penrose-kpis.svg","image"]
+:HL["/images/articles/penrose-disk-bug.png","image"]
+:HL["/images/articles/penrose-disk-artifact.png","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"penrose-geodesics","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"qBW78IDjrM_qO2I_k3dW5"}

@@ -2,14 +2,14 @@ import { Mail, SquareCode, Send } from 'lucide-react'
 import { getAllMembers, MemberMeta } from '@/lib/content-utils'
 
 // ponytail: single helper to render member card grid without code duplication
-function MemberGrid({ list, startIndex = 0 }: { list: MemberMeta[]; startIndex?: number }) {
+function MemberGrid({ list }: { list: MemberMeta[] }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {list.map((member, idx) => (
         <div
           key={member.id}
           className="group relative border-b border-r border-border p-6 hover:bg-[rgba(61,184,245,0.04)] transition-colors duration-75 animate-enter-up"
-          style={{ animationDelay: `${0.04 * (startIndex + idx)}s` }}
+          style={{ animationDelay: `${0.04 * idx}s` }}
         >
           {/* Corner index */}
           <div className="flex items-start justify-between mb-5">
@@ -71,8 +71,6 @@ function MemberGrid({ list, startIndex = 0 }: { list: MemberMeta[]; startIndex?:
 
 export default function MembersSection() {
   const members = getAllMembers()
-  const coreMembers = members.filter((m) => m.group === 'core')
-  const crewMembers = members.filter((m) => m.group === 'crew')
 
   return (
     <section id="members" className="border-b border-border blueprint-grid">
@@ -92,47 +90,13 @@ export default function MembersSection() {
           </div>
           <div className="hidden sm:flex flex-col items-end gap-1 pb-1">
             <span className="coord-label">ROSTER: {String(members.length).padStart(3, '0')} LISTED</span>
-            <span className="coord-label">TOTAL TEAM: 40+</span>
           </div>
         </div>
       </div>
 
-      {/* Core Members Subsection Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-6 border-b border-border bg-[rgba(61,184,245,0.02)]">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 bg-accent inline-block" />
-            <h3 className="font-display font-bold text-lg sm:text-xl tracking-wider uppercase text-foreground">
-              Core Leadership
-            </h3>
-          </div>
-          <span className="coord-label text-accent">CORE: {String(coreMembers.length).padStart(2, '0')}</span>
-        </div>
-      </div>
-
-      {/* Core Members Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MemberGrid list={coreMembers} startIndex={0} />
-      </div>
-
-      {/* Crew Members Subsection Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-6 border-t border-b border-border bg-[rgba(61,184,245,0.02)]">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 border border-accent inline-block" />
-            <h3 className="font-display font-bold text-lg sm:text-xl tracking-wider uppercase text-foreground">
-              Research Crew
-            </h3>
-          </div>
-          <span className="coord-label">CREW: {String(crewMembers.length).padStart(2, '0')}</span>
-        </div>
-      </div>
-
-      {/* Crew Members Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <MemberGrid list={crewMembers} startIndex={coreMembers.length} />
+        <MemberGrid list={members} />
       </div>
     </section>
   )
 }
-

@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import remarkGfm from 'remark-gfm'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import { getArticleBySlug, getAllArticles } from '@/lib/content-utils'
 import { articleComponents } from '@/lib/mdx-components'
+import { mdxOptions } from '@/lib/mdx-options'
 
 export function generateStaticParams() {
   return getAllArticles().map((article) => ({
@@ -89,7 +89,7 @@ export default async function ArticlePage(props: ArticleDetailsProps) {
           <div className="mdx-content">
             <MDXRemote
               source={content}
-              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              options={{ mdxOptions }}
               components={articleComponents}
             />
           </div>
