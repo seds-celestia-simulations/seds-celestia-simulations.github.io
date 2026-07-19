@@ -1,17 +1,32 @@
 import type { Metadata, Viewport } from 'next'
-import { Space_Grotesk, Geist_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
+import { Instrument_Serif } from 'next/font/google'
 import 'katex/dist/katex.min.css'
 import './globals.css'
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+const pragmatica = localFont({
+  src: '../fonts/pragmatica.otf',
+  variable: '--font-pragmatica',
+  display: 'swap',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const monument = localFont({
+  src: '../fonts/monument.woff2',
+  variable: '--font-monument',
+  display: 'swap',
+})
+
+const neueHelvetica = localFont({
+  src: '../fonts/neue-helvetica-regular.woff2',
+  variable: '--font-neue-helvetica',
+  display: 'swap',
+})
+
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
   subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -24,7 +39,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: [{ color: '#080d14' }],
+  themeColor: [{ color: '#05080f' }],
 }
 
 export default function RootLayout({
@@ -33,7 +48,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${geistMono.variable} bg-background`}>
+    <html
+      lang="en"
+      className={`${pragmatica.variable} ${monument.variable} ${neueHelvetica.variable} ${instrumentSerif.variable} bg-background`}
+    >
       <body className="font-sans antialiased bg-background text-foreground">
         {children}
       </body>

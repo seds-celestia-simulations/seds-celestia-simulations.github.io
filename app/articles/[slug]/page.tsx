@@ -50,7 +50,7 @@ export default async function ArticlePage(props: ArticleDetailsProps) {
       <section className="border-b border-border py-16 sm:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            href="/#articles"
+            href="/articles"
             className="inline-flex items-center gap-2 text-accent hover:text-accent-light transition-colors font-mono text-xs uppercase tracking-wider mb-8"
           >
             <ArrowLeft className="w-4 h-4" />

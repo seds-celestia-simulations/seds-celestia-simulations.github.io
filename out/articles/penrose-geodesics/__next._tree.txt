@@ -1,10 +1,11 @@
-:HL["/_next/static/chunks/0dbsgx8kvgnoy.css","style"]
-:HL["/_next/static/media/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/chunks/04mhb1ujwca6t.css","style"]
+:HL["/_next/static/media/monument-s.p.0r0w7b6nuh7b3.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/neue_helvetica_regular-s.p.0y~l0i1.51yzb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/pragmatica-s.p.0-8om7875mvpx.otf","font",{"crossOrigin":"","type":"font/otf"}]
 :HL["/images/articles/penrose-disk-fixed.png","image"]
 :HL["/images/articles/penrose-freefall.png","image"]
 :HL["/images/articles/penrose-orbital.png","image"]
 :HL["/images/projects/penrose-kpis.svg","image"]
 :HL["/images/articles/penrose-disk-bug.png","image"]
 :HL["/images/articles/penrose-disk-artifact.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"penrose-geodesics","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"qBW78IDjrM_qO2I_k3dW5"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"penrose-geodesics","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"P1GDBkXeSRYF2Lgj8aTkk"}
