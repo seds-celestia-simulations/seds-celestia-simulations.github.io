@@ -2,6 +2,7 @@ import type { MDXComponents } from 'mdx/types'
 import { Children, isValidElement, type ReactNode } from 'react'
 import { KpiGrid, Callout, Roadmap } from '@/components/mdx-widgets'
 import { FlowStrip, DualFlow, BranchFlow, SeqFlow } from '@/components/flow-diagrams'
+import { InductionRoadmap } from '@/components/InductionRoadmap'
 
 function MdxImage({
   src,
@@ -75,6 +76,38 @@ function Pre({ children, ...props }: { children?: ReactNode }) {
   )
 }
 
+function Table({ children, ...props }: { children?: React.ReactNode }) {
+  return (
+    <div className="my-8 overflow-x-auto border border-border">
+      <table className="w-full border-collapse font-mono text-sm" {...props}>
+        {children}
+      </table>
+    </div>
+  )
+}
+
+function TableHeaderCell({ children, ...props }: { children?: React.ReactNode }) {
+  return (
+    <th
+      className="px-4 py-3 text-left text-[10px] uppercase tracking-[0.16em] text-accent font-semibold border-b border-border bg-[rgba(61,184,245,0.04)] whitespace-nowrap"
+      {...props}
+    >
+      {children}
+    </th>
+  )
+}
+
+function TableCell({
+  children,
+  ...props
+}: { children?: React.ReactNode } & React.TdHTMLAttributes<HTMLTableCellElement>) {
+  return (
+    <td className="px-4 py-3 border-b border-border last:border-b-0 text-[var(--text-2)]" {...props}>
+      {children}
+    </td>
+  )
+}
+
 export const articleComponents: MDXComponents = {
   KpiGrid,
   Callout,
@@ -83,6 +116,10 @@ export const articleComponents: MDXComponents = {
   DualFlow,
   BranchFlow,
   SeqFlow,
+  InductionRoadmap,
+  table: Table,
+  th: TableHeaderCell,
+  td: TableCell,
   h2: ({ children, ...props }) => (
     <h2 className="text-2xl font-bold text-foreground font-display mt-8 mb-4" {...props}>
       {children}

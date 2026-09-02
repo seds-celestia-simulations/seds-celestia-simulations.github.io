@@ -1,0 +1,97 @@
+---
+title: "Simulations Crew Inductions, 2026"
+slug: "simulations-crew-inductions-2026"
+description: "Assignment-based inductions for the Simulations vertical, three weeks, one shared start, two tracks."
+date: "2026-09-03"
+tags: ["seds", "simulations", "inductions", "crew"]
+---
+
+import { InductionRoadmap } from '@/components/InductionRoadmap'
+
+# Simulations Crew Inductions, 2026
+
+Interviews are done. If you're reading this you made it past that stage, and the next three weeks are where it stops being about talking about simulations and starts being about building them.
+
+## How it works
+
+- Inductions are **assignment-based**, three weeks, three assignments.
+- **Weekly workshops** run alongside each assignment to help when you're stuck. Times go up on our Instagram, link at the bottom.
+- **Week 1** is the same for everyone.
+- From **Week 2** you pick a track, **ML** or **Ray Tracing**, and stay on it through Week 3.
+- Each assignment has a spec PDF and a code template in the repo, and asks you to write up **two or more questions** alongside the code.
+- Everything gets submitted as a **GitHub link**. No zips, no email attachments.
+
+| Week | Everyone | Track A: ML | Track B: Ray Tracing |
+| --- | --- | --- | --- |
+| 1 | Rigid Balls, Round Walls (Pygame) | . | . |
+| 2 | . | Grid-based simulation | 2D ray tracing |
+| 3 | . | Train a model on your Week 2 sim's data to predict it | A full, proper ray tracer |
+
+## Week 1: Rigid Balls, Round Walls
+
+Everyone starts in the same place: gravity integration and collision detection for rigid balls bouncing around inside a circular boundary, rendered with Pygame. It's a small, self-contained physics sim. Nothing flashy, the point is to get your hands dirty with integrators, collision response, and the kind of numerical edge cases every simulation eventually runs into.
+
+## Weeks 2 and 3: pick a track
+
+This is where the paths split.
+
+<InductionRoadmap
+  intro={{
+    label: "Week 1",
+    description: "Rigid Balls, Round Walls, gravity + collision (Pygame)",
+  }}
+  tracks={[
+    {
+      name: "Track A, Machine Learning",
+      stages: [
+        { label: "Week 2", description: "Build a grid-based simulation" },
+        { label: "Week 3", description: "Train a model on its data to predict it" },
+      ],
+    },
+    {
+      name: "Track B, Ray Tracing",
+      stages: [
+        { label: "Week 2", description: "Ray tracing in 2D, kept simple" },
+        { label: "Week 3", description: "Implement a full, proper ray tracer" },
+      ],
+    },
+  ]}
+/>
+
+### Track A: Machine Learning
+
+Week 2 has you building a grid-based simulation from scratch. Week 3 turns around and uses that same simulation as a data source: you train a model on the data it generates and it learns to predict the system's behavior. If the idea of your own simulation becoming the training set appeals, this is the one.
+
+### Track B: Ray Tracing
+
+Week 2 keeps things simple. Ray tracing in 2D, enough to get the geometry and the intuition right. Week 3 is where it gets real: you extend that into a full, proper ray tracer. If tracing light sounds better than training models, pick this.
+
+## What we're actually grading
+
+Straight from the assignment brief, because it's worth repeating:
+
+> Incomplete work submitted with honest notes on where it broke scores above
+> complete work you cannot explain. Partial submissions are read: genuine
+> effort and clear thinking count for more than a finished notebook you cannot
+> explain.
+
+Which means each week we're looking for two things:
+
+- The `TODO` blocks filled in, however far you got.
+- A short writeup in that week's `README.md`, answers to the questions in the spec, plus what you make of your own results: where it broke, what surprised you, what you couldn't get working. Half a page is plenty.
+
+## How to submit
+
+The repo's README has the full step-by-step, including the exact commands and the Windows-specific notes. Short version:
+
+1. Use the **"Use this template"** button on the repo to create your own **public** copy under your account, then clone it.
+2. Do the work, write up your README, and push.
+3. Drop your repo link in that week's form.
+
+## Links
+
+- [Github Repository (start here)](https://github.com/seds-celestia-simulations/simulations-assignment-2026)
+- Weekly submission form: **TBA**
+- [Follow our Instagram along for announcements](https://www.instagram.com/simulations_bpgc)
+
+See you in Week 1.
