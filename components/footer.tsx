@@ -10,7 +10,7 @@ const navLinks = [
 ]
 
 const resourceLinks = [
-  { label: 'GitHub Organization', href: 'https://github.com/seds-celestia' },
+  { label: 'GitHub Organization', href: 'https://github.com/seds-celestia-simulations' },
 ]
 
 export default function Footer() {
@@ -59,7 +59,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-2">
               <a
-                href="https://github.com/seds-celestia"
+                href="https://github.com/seds-celestia-simulations"
                 aria-label="GitHub"
                 className="p-2 border border-border hover:border-accent text-[var(--text-3)] hover:text-accent transition-colors duration-75"
               >

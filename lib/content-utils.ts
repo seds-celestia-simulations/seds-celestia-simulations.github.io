@@ -146,5 +146,7 @@ export function getAllMembers(): MemberMeta[] {
   // ponytail: direct file read without extra parser or abstraction
   const filePath = path.join(process.cwd(), 'content', 'members.json')
   if (!fs.existsSync(filePath)) return []
-  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+  const members: MemberMeta[] = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+  const isEx = (m: MemberMeta) => /^ex\b/i.test(m.role)
+  return [...members.filter((m) => !isEx(m)), ...members.filter(isEx)]
 }

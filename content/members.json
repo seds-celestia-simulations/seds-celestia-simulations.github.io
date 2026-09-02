@@ -24,72 +24,6 @@
   {
     "id": 3,
     "index": "003",
-    "name": "Aditya Melinkeri",
-    "role": "Ex Simulations Lead",
-    "group": "core",
-    "initials": "AM",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 4,
-    "index": "004",
-    "name": "Tanishq Srivastav",
-    "role": "Ex Simulations Lead",
-    "group": "core",
-    "initials": "TS",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 5,
-    "index": "005",
-    "name": "Arnav Godbole",
-    "role": "Ex Simulations Core",
-    "group": "core",
-    "initials": "AG",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 6,
-    "index": "006",
-    "name": "Gyan Thammiah",
-    "role": "Ex Simulations Core",
-    "group": "core",
-    "initials": "GT",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 7,
-    "index": "007",
-    "name": "Arindam Jakhwal",
-    "role": "Ex Simulations Core",
-    "group": "core",
-    "initials": "AJ",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 8,
-    "index": "008",
-    "name": "Dhyan Laad",
-    "role": "Ex Simulations Core",
-    "group": "core",
-    "initials": "DL",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 9,
-    "index": "009",
     "name": "Anvay Shinde",
     "role": "Core",
     "group": "core",
@@ -99,8 +33,8 @@
     "github": "#"
   },
   {
-    "id": 10,
-    "index": "010",
+    "id": 4,
+    "index": "004",
     "name": "Bhuvanesh Reddy",
     "role": "Core",
     "group": "core",
@@ -110,52 +44,8 @@
     "github": "#"
   },
   {
-    "id": 11,
-    "index": "011",
-    "name": "Harliv Singh",
-    "role": "Core",
-    "group": "core",
-    "initials": "HS",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 12,
-    "index": "012",
-    "name": "Hartaj Gill",
-    "role": "Core",
-    "group": "core",
-    "initials": "HG",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 13,
-    "index": "013",
-    "name": "Sidhant Khatodia",
-    "role": "Core",
-    "group": "core",
-    "initials": "SK",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 14,
-    "index": "014",
-    "name": "Tanya Bahrani",
-    "role": "Core",
-    "group": "core",
-    "initials": "TB",
-    "email": "",
-    "linkedin": "#",
-    "github": "#"
-  },
-  {
-    "id": 15,
-    "index": "015",
+    "id": 5,
+    "index": "005",
     "name": "Hardik Bisht",
     "role": "Core",
     "group": "core",
@@ -165,8 +55,52 @@
     "github": "#"
   },
   {
-    "id": 16,
-    "index": "016",
+    "id": 6,
+    "index": "006",
+    "name": "Harliv Singh",
+    "role": "Core",
+    "group": "core",
+    "initials": "HS",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 7,
+    "index": "007",
+    "name": "Hartaj Gill",
+    "role": "Core",
+    "group": "core",
+    "initials": "HG",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 8,
+    "index": "008",
+    "name": "Sidhant Khatodia",
+    "role": "Core",
+    "group": "core",
+    "initials": "SK",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 9,
+    "index": "009",
+    "name": "Tanya Bahrani",
+    "role": "Core",
+    "group": "core",
+    "initials": "TB",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 10,
+    "index": "010",
     "name": "Nimish Khatavkar",
     "role": "Core",
     "group": "core",
@@ -176,12 +110,78 @@
     "github": "#"
   },
   {
-    "id": 17,
-    "index": "017",
+    "id": 11,
+    "index": "011",
     "name": "Advay Singh",
     "role": "Core",
     "group": "core",
     "initials": "AdS",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 12,
+    "index": "012",
+    "name": "Aditya Melinkeri",
+    "role": "Ex Simulations Lead",
+    "group": "core",
+    "initials": "AM",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 13,
+    "index": "013",
+    "name": "Tanishq Srivastav",
+    "role": "Ex Simulations Lead",
+    "group": "core",
+    "initials": "TS",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 14,
+    "index": "014",
+    "name": "Arnav Godbole",
+    "role": "Ex Simulations Core",
+    "group": "core",
+    "initials": "AG",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 15,
+    "index": "015",
+    "name": "Gyan Thammiah",
+    "role": "Ex Simulations Core",
+    "group": "core",
+    "initials": "GT",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 16,
+    "index": "016",
+    "name": "Arindam Jakhwal",
+    "role": "Ex Simulations Core",
+    "group": "core",
+    "initials": "AJ",
+    "email": "",
+    "linkedin": "#",
+    "github": "#"
+  },
+  {
+    "id": 17,
+    "index": "017",
+    "name": "Dhyan Laad",
+    "role": "Ex Simulations Core",
+    "group": "core",
+    "initials": "DL",
     "email": "",
     "linkedin": "#",
     "github": "#"

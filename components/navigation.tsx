@@ -54,12 +54,6 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="mailto:contact@seds-celestia.org"
-              className="ml-4 px-5 h-8 flex items-center text-[10px] font-mono uppercase tracking-[0.18em] bg-accent text-background hover:bg-[var(--accent-bright)] transition-colors duration-75 font-semibold"
-            >
-              Contact Us
-            </a>
           </div>
 
           {/* Mobile toggle */}

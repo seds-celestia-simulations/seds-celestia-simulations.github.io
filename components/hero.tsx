@@ -41,7 +41,7 @@ export default function Hero() {
             </span>
             <span
               className="block font-display font-bold leading-[0.88] tracking-tight text-foreground mt-2"
-              style={{ fontSize: 'clamp(3.5rem, 14vw, 11rem)' }}
+              style={{ fontSize: 'clamp(3.2rem, 12vw, 11rem)' }}
             >
               SIMULATIONS
             </span>
