@@ -1,37 +1,38 @@
 ---
-title: "Simulations Crew Inductions, 2026"
-slug: "simulations-crew-inductions-2026"
-description: "Assignment-based inductions for the Simulations vertical, three weeks, one shared start, two tracks."
-date: "2026-09-03"
+title: 'Simulations Inductions 2026'
+excerpt: 'Here is a brief overview of how the inductions for Simulations will move ahead.'
+date: 'September 3, 2026'
+readTime: '5 min read'
+category: 'Research'
+author: 'SEDS Celestia Simulations'
 tags: ["seds", "simulations", "inductions", "crew"]
 ---
 
 import { InductionRoadmap } from '@/components/InductionRoadmap'
 
-# Simulations Crew Inductions, 2026
-
-Interviews are done. If you're reading this you made it past that stage, and the next three weeks are where it stops being about talking about simulations and starts being about building them.
+So interviews are done. If you're reading this you made it past that stage, and the next three weeks are where it stops being about talking about simulations and starts being about building them.
 
 ## How it works
 
-- Inductions are **assignment-based**, three weeks, three assignments.
-- **Weekly workshops** run alongside each assignment to help when you're stuck. Times go up on our Instagram, link at the bottom.
+- Inductions are **assignment based**, three weeks, three assignments.
+- **Weekly workshops** will be organised to teach you everything you need to know for that week's announcement. Times go up on our Instagram (link at the bottom) as well as the Simulations Induction Whatsapp group.
 - **Week 1** is the same for everyone.
 - From **Week 2** you pick a track, **ML** or **Ray Tracing**, and stay on it through Week 3.
 - Each assignment has a spec PDF and a code template in the repo, and asks you to write up **two or more questions** alongside the code.
 - Everything gets submitted as a **GitHub link**. No zips, no email attachments.
+- Don't worry about the details, we will explain everything in the workshops.
 
 | Week | Everyone | Track A: ML | Track B: Ray Tracing |
 | --- | --- | --- | --- |
-| 1 | Rigid Balls, Round Walls (Pygame) | . | . |
-| 2 | . | Grid-based simulation | 2D ray tracing |
-| 3 | . | Train a model on your Week 2 sim's data to predict it | A full, proper ray tracer |
+| 1 | Rigid Balls, Round Walls (Pygame) | - | - |
+| 2 | - | Grid-based simulation | 2D ray tracing |
+| 3 | - | Train a model on your Week 2 sim's data to predict it | A full, proper ray tracer |
 
 ## Week 1: Rigid Balls, Round Walls
 
 Everyone starts in the same place: gravity integration and collision detection for rigid balls bouncing around inside a circular boundary, rendered with Pygame. It's a small, self-contained physics sim. Nothing flashy, the point is to get your hands dirty with integrators, collision response, and the kind of numerical edge cases every simulation eventually runs into.
 
-## Weeks 2 and 3: pick a track
+## Weeks 2 and 3: To Train or to Trace?
 
 This is where the paths split.
 
@@ -60,20 +61,11 @@ This is where the paths split.
 
 ### Track A: Machine Learning
 
-Week 2 has you building a grid-based simulation from scratch. Week 3 turns around and uses that same simulation as a data source: you train a model on the data it generates and it learns to predict the system's behavior. If the idea of your own simulation becoming the training set appeals, this is the one.
+Week 2 has you building a grid-based simulation from scratch. Week 3 turns around and uses that same simulation as a data source: you train a model on the data it generates and it learns to predict the system's behavior. If the idea of your own simulation becoming the training set appeals, this is the one for you.
 
 ### Track B: Ray Tracing
 
 Week 2 keeps things simple. Ray tracing in 2D, enough to get the geometry and the intuition right. Week 3 is where it gets real: you extend that into a full, proper ray tracer. If tracing light sounds better than training models, pick this.
-
-## What we're actually grading
-
-Straight from the assignment brief, because it's worth repeating:
-
-> Incomplete work submitted with honest notes on where it broke scores above
-> complete work you cannot explain. Partial submissions are read: genuine
-> effort and clear thinking count for more than a finished notebook you cannot
-> explain.
 
 Which means each week we're looking for two things:
 
