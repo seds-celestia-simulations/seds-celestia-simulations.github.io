@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { ArrowLeft, Mail, SquareCode, Send } from 'lucide-react'
+import { ArrowLeft, Mail } from 'lucide-react'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import { getAllMembers, MemberMeta } from '@/lib/content-utils'
@@ -16,13 +17,13 @@ function MemberCard({ member }: { member: MemberMeta }) {
       key: 'linkedin',
       href: member.linkedin && member.linkedin !== '#' ? member.linkedin : null,
       label: `LinkedIn: ${member.name}`,
-      Icon: Send,
+      Icon: FaLinkedin,
     },
     {
       key: 'github',
       href: member.github && member.github !== '#' ? member.github : null,
       label: `GitHub: ${member.name}`,
-      Icon: SquareCode,
+      Icon: FaGithub,
     },
   ]
 
